@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang='en'>
+
+<head>
+	<title>Example</title>
+	<meta charset='utf-8'>
+</head>
+
+<body>
+	<label for='name'>What is your name?</label>
+	<input type='text' name='name' id='name'>
+	<button>Say hello</button>
+
+	<script>
+		function sayHello() {
+			// Extracting data from the DOM
+			let name = document.getElementById('name').value;
+
+			let newParagraph = document.createElement('p');
+			newParagraph.textContent = 'Hello ' + name;
+
+			// Altering the DOM
+			document.body.appendChild(newParagraph);
+		}
+
+		const button = document.querySelector('button');
+		button.addEventListener('click', sayHello);
+	</script>
+
+</body>
+
+</html>
