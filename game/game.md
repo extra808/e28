@@ -25,3 +25,5 @@
 - update placeholder with correct letter
 - add letter to guessed letter array
 - decrement current guesses
+
+[JSFiddle](https://jsfiddle.net/du2koa81/)
