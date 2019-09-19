@@ -26,4 +26,4 @@
 - add letter to guessed letter array
 - decrement current guesses
 
-[JSFiddle](https://jsfiddle.net/du2koa81/)
+[JSFiddle](https://jsfiddle.net/du2koa81/) [JSFiddle with small change](https://jsfiddle.net/qevwy4ax/)
