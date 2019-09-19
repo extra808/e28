@@ -35,6 +35,10 @@
 			}
 		}
 
+		div {
+			margin: 20px auto;
+		}
+
 		button,
 		input {
 			font-size: 1rem;
@@ -47,6 +51,10 @@
 
 		input[type='text'] {
 			text-align: center;
+		}
+
+		label {
+			display: block;
 		}
 
 		#letter,
@@ -63,18 +71,15 @@
 <body>
 	<h1>Hangero</h1>
 	<p>A game of Hangman</p>
+
 	<div>
 		<label for="word">Guess the word</label>
-	</div>
-	<div>
 		<input type="text" name="word" id="word" readonly size="20" aria-live="polite" aria-atomic="true" value="">
 	</div>
 	<div>
 		<form action method="POST">
 			<div>
 				<label for="letter">Enter a letter</label>
-			</div>
-			<div>
 				<input type="text" name="letter" id="letter" size="2" maxlength="1" autocomplete="off" autocorrect="off"
 					autocapitalize="off" value="">
 				<input type="submit" name="submit" id="submit" value="Submit">
