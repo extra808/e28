@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Hangero - DGMD E-28</title>
+
+	<style>
+		:root {
+			--rwd-font-size: calc(20px + 6 * ((100vw - 320px) / 680));
+		}
+
+		*,
+		*::before,
+		*::after {
+			box-sizing: border-box;
+		}
+
+		[v-cloak] {
+			display: none
+		}
+
+		/* Based on 'Fluid Typography' */
+		html {
+			font-size: 16px;
+		}
+
+		@media screen and (min-width: 320px) {
+			html {
+				font-size: var(--rwd-font-size);
+			}
+		}
+
+		@media screen and (min-width: 1000px) {
+			html {
+				font-size: 26px;
+			}
+		}
+
+		div {
+			margin: 20px auto;
+		}
+
+		button,
+		input {
+			font-size: 1rem;
+		}
+
+		button,
+		input[type=submit] {
+			cursor: pointer;
+		}
+
+		input[type='text'] {
+			text-align: center;
+		}
+
+		label {
+			display: block;
+		}
+
+		#letter,
+		#word {
+			font-family: 'Courier New', Courier, monospace;
+		}
+
+		/* body * {
+			border: 1px solid green;
+		} */
+	</style>
+</head>
+
+<body>
+<main id='app' v-cloak>
+	<h1>Hangero</h1>
+	<p>A game of Hangman</p>
+
+	<div>
+		<label for="word">Guess the word</label>
+		<input type="text" name="word" id="word" readonly size="20" aria-live="polite" aria-atomic="true" v-bind:value='placeholder'>
+	</div>
+	<div>
+		<form action method="POST">
+			<div>
+				<label for="letter">Enter a letter</label>
+				<input type="text" name="letter" id="letter" size="2" maxlength="1" autocomplete="off" autocorrect="off"
+					autocapitalize="off" v-model='guessLetter' v-bind:disabled='letterDisabled'>
+				<input type="submit" name="submit" id="submit" value="Submit" v-on:click.prevent='checkGuess()'>
+			</div>
+		</form>
+	</div>
+	<p tabindex="0">
+		Used letters:
+		<span v-for='letter in guessedLetters'>{{letter}} </span>
+	</p>
+	<p aria-live="polite" aria-atomic="true" tabindex="0">
+		Remaining guesses <span>{{currentGuesses}}</span>
+	</p>
+	<div>
+		<button id="newGame" v-on:click='newGame()'>New Game</button>
+	</div>
+</main>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="p1.js"></script>
+
+</html>
