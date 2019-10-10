@@ -73,35 +73,36 @@
 </head>
 
 <body>
-<main id='app' v-cloak>
-	<h1>Hangero</h1>
-	<p>A game of Hangman</p>
+	<main id='app' v-cloak>
+		<h1>Hangero</h1>
+		<p>A game of Hangman</p>
 
-	<div>
-		<label for="word">Guess the word</label>
-		<input type="text" name="word" id="word" readonly size="20" aria-live="polite" aria-atomic="true" v-bind:value='placeholder'>
-	</div>
-	<div>
-		<form action method="POST">
-			<div>
-				<label for="letter">Enter a letter</label>
-				<input type="text" name="letter" id="letter" size="2" maxlength="1" autocomplete="off" autocorrect="off"
-					autocapitalize="off" v-model='guessLetter' v-bind:disabled='letterDisabled'>
-				<input type="submit" name="submit" id="submit" value="Submit" v-on:click.prevent='checkGuess()'>
-			</div>
-		</form>
-	</div>
-	<p tabindex="0">
-		Used letters:
-		<span v-for='letter in guessedLetters'>{{letter}} </span>
-	</p>
-	<p aria-live="polite" aria-atomic="true" tabindex="0">
-		Remaining guesses <span>{{currentGuesses}}</span>
-	</p>
-	<div>
-		<button id="newGame" v-on:click='newGame()'>New Game</button>
-	</div>
-</main>
+		<div>
+			<label for="word">Guess the word</label>
+			<input type="text" name="word" id="word" readonly size="20" aria-live="polite" aria-atomic="true"
+				v-bind:value='placeholder'>
+		</div>
+		<div>
+			<form action method="POST">
+				<div>
+					<label for="letter">Enter a letter</label>
+					<input type="text" name="letter" id="letter" size="2" maxlength="1" autocomplete="off"
+						autocorrect="off" autocapitalize="off" v-model='guessLetter' v-bind:disabled='letterDisabled'>
+					<input type="submit" name="submit" id="submit" value="Submit" v-on:click.prevent='checkGuess()'>
+				</div>
+			</form>
+		</div>
+		<p tabindex="0">
+			Used letters:
+			<span v-for='letter in guessedLetters'>{{letter}} </span>
+		</p>
+		<p aria-live="polite" aria-atomic="true" tabindex="0">
+			Remaining guesses <span>{{currentGuesses}}</span>
+		</p>
+		<div>
+			<button id="newGame" v-on:click='newGame()'>New Game</button>
+		</div>
+	</main>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="p1.js"></script>
