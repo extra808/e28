@@ -48,15 +48,45 @@
 			margin: 20px auto;
 		}
 
-		button,
 		input {
 			font-size: 1rem;
 		}
 
 		button,
-		input[type=submit] {
+		input[type="submit"] {
+			border: 0;
+			border-radius: .3rem;
+			padding: .1em .5em;
+			margin: 0;
+			text-decoration: none;
+			background: hsl(0, 0%, 82%);
+			font-size: 1rem;
 			cursor: pointer;
+			text-align: center;
+			transition: background 250ms ease-in-out,
+				transform 150ms ease;
+			-webkit-appearance: none;
+			-moz-appearance: none;
 		}
+
+		button:hover,
+		input[type="submit"]:hover,
+		button:focus,
+		input[type="submit"]:focus {
+			background: hsl(0, 0%, 46%);
+		}
+
+		button:focus,
+		input[type="submit"]:focus {
+			outline: 1px solid #fff;
+			outline-offset: -4px;
+		}
+
+		button:active,
+		input[type="submit"]:active {
+			transform: scale(0.99);
+		}
+
 
 		input[type='text'] {
 			text-align: center;
