@@ -33,7 +33,7 @@ var app = new Vue({
 		},
 		// end when word has been guessed
 		placeholder: function (val, oldVal) {
-			if (app.currentWord == val.split(' ').join('')) {
+			if (this.currentWord == val.split(' ').join('')) {
 				endGame();
 			}
 		}
