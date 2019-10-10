@@ -18,6 +18,11 @@
 			box-sizing: border-box;
 		}
 
+		body {
+			display: flex;
+			justify-content: center;
+		}
+
 		[v-cloak] {
 			display: none
 		}
@@ -65,10 +70,6 @@
 		#word {
 			font-family: 'Courier New', Courier, monospace;
 		}
-
-		/* body * {
-			border: 1px solid green;
-		} */
 	</style>
 </head>
 
@@ -80,7 +81,7 @@
 		<div>
 			<label for="word">Guess the word</label>
 			<input type="text" name="word" id="word" readonly size="20" aria-live="polite" aria-atomic="true"
-				v-bind:value='placeholder'>
+				v-bind:value='spacedPlaceholder'>
 		</div>
 		<div>
 			<form action method="POST">
