@@ -1,6 +1,6 @@
 # Project 1
 + By: Curtis Wilcox
-+ Production URL: <http://p1.yourdomain.com>
++ Production URL: <https://p1.dgmde28.cognize.org/>
 
 ## Outside resources
 - [Fluid Typography](https://css-tricks.com/snippets/css/fluid-typography/)
