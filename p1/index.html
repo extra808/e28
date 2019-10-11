@@ -100,38 +100,192 @@
 		#word {
 			font-family: 'Courier New', Courier, monospace;
 		}
+
+		.feedback {
+			display: grid;
+			grid-template-areas:
+				"letters	stick"
+				"guesses	stick"
+			;
+			grid-template-columns: 2fr 1fr;
+
+		}
+
+		.letters {
+			grid-area: letters;
+		}
+
+		.guesses {
+			grid-area: guesses;
+		}
+
+		.stick {
+			grid-area: stick;
+			margin: 0;
+		}
+
+		.stickHide {
+			visibility: hidden;
+		}
+
+		.draw {
+			stroke-dasharray: 1000;
+			stroke-dashoffset: 1000;
+			animation: dash 1.5s linear forwards;
+		}
+
+		@keyframes dash {
+			from {
+				stroke-dashoffset: 1000;
+			}
+
+			to {
+				stroke-dashoffset: 0;
+			}
+		}
 	</style>
 </head>
 
 <body>
 	<main id='app' v-cloak>
-		<h1>Hangero</h1>
-		<p>A game of Hangman</p>
+		<div class="game">
+			<h1>Hangero</h1>
+			<p>A game of Hangman</p>
 
-		<div>
-			<label for="word">Guess the word</label>
-			<input type="text" name="word" id="word" readonly size="20" aria-live="polite" aria-atomic="true"
-				v-bind:value='spacedPlaceholder'>
-		</div>
-		<div>
-			<form action method="POST">
-				<div>
-					<label for="letter">Enter a letter</label>
-					<input type="text" name="letter" id="letter" size="2" maxlength="1" autocomplete="off"
-						autocorrect="off" autocapitalize="off" v-model='guessLetter' v-bind:disabled='letterDisabled'>
-					<input type="submit" name="submit" id="submit" value="Submit" v-on:click.prevent='checkGuess()'>
+			<div>
+				<label for="word">Guess the word</label>
+				<input type="text" name="word" id="word" readonly size="20" aria-live="polite" aria-atomic="true"
+					v-bind:value='spacedPlaceholder'>
+			</div>
+			<div>
+				<form action method="POST">
+					<div>
+						<label for="letter">Enter a letter</label>
+						<input type="text" name="letter" id="letter" size="2" maxlength="1" autocomplete="off"
+							autocorrect="off" autocapitalize="off" v-model='guessLetter'
+							v-bind:disabled='letterDisabled'>
+						<input type="submit" name="submit" id="submit" value="Submit" v-on:click.prevent='checkGuess()'>
+					</div>
+				</form>
+			</div>
+			<div class="feedback">
+				<p tabindex="0" class="letters">
+					Used letters:<br>
+					<span v-for='letter in guessedLetters'>{{letter}} </span>&nbsp;
+				</p>
+				<p aria-live="polite" aria-atomic="true" tabindex="0" class="guesses">
+					Remaining guesses <span>{{currentGuesses}}</span>
+				</p>
+
+				<div class="stick">
+					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+						preserveAspectRatio="xMidYMid meet" height="140" width="75" viewBox="175 120 240 440">
+						<defs>
+							<path
+								d="M286.02 148.74L275.34 148.74L264.66 149.71L253.98 151.65L244.27 156.5L235.53 163.3L228.74 171.07L223.88 180.78L221.94 191.46L220 202.14L219.03 212.82L220.97 223.5L221.94 234.17L224.85 243.88L227.77 253.59L235.53 261.36L245.24 266.21L253.01 273.01L261.75 278.83L271.46 281.75L282.14 285.63L293.79 286.6L304.47 286.6L315.15 285.63L324.85 280.78L331.65 273.01L338.45 264.27L343.3 254.56L347.18 244.85L351.07 235.15L352.04 224.47L352.04 213.79L353.01 203.11L351.07 192.43L346.21 182.72L339.42 174.95L332.62 167.18L325.83 159.42L316.12 156.5L306.41 152.62L296.7 149.71L286.99 146.8"
+								id="d3hYBzYoDW"></path>
+							<path
+								d="M288.93 285.63L287.96 296.31L287.96 306.99L287.96 318.64L288.93 329.32L291.84 339.03L292.82 349.71L292.82 361.36L292.82 372.04L292.82 382.72L288.93 392.43L286.02 402.14L284.08 412.82L284.08 423.5L283.11 434.17L285.05 444.85L284.08 455.53"
+								id="lrrp94zNY"></path>
+							<path
+								d="M290.87 329.32L300.58 332.23L310.29 335.15L320.97 336.12L330.68 339.03L341.36 340.97L351.07 343.88L360.78 346.8L370.49 350.68L380.19 355.53L390.87 357.48"
+								id="fumoi3z9X"></path>
+							<path
+								d="M286.99 328.35L274.37 330.29L263.69 333.2L253.98 337.09L243.3 339.03L231.65 339.03L220 340L209.32 341.94L200.58 347.77L192.82 354.56"
+								id="b8PrxARyG"></path>
+							<path
+								d="M283.11 454.56L287.96 464.27L291.84 473.98L297.67 483.69L303.5 492.43L309.32 502.14L314.17 511.84L320 520.58L324.85 530.29L325.83 540.97L336.5 540.97L347.18 540.97L357.86 540.97"
+								id="aU7q5GLN7"></path>
+							<path
+								d="M282.14 452.62L276.31 463.3L270.49 472.04L264.66 480.78L260.78 490.49L255.92 500.19L251.07 510.87L245.24 519.61L239.42 528.35L229.71 533.2L219.03 535.15"
+								id="guQqgb6po"></path>
+							<path d="M306.41 185.63L306.41 197.28L306.41 207.96L309.32 217.67L310.29 228.35"
+								id="a3hJkuh4Uc">
+							</path>
+							<path d="M270.49 186.6L270.49 197.28L271.46 207.96L272.43 218.64" id="bk6KSW1j4"></path>
+							<path d="M264.66 259.42L274.37 256.5L283.11 250.68L293.79 249.71L304.47 249.71L313.2 255.53"
+								id="c3EdhubU4v"></path>
+						</defs>
+						<g>
+							<g>
+								<g>
+									<use xlink:href="#d3hYBzYoDW" opacity="1" fill-opacity="0" stroke="#000000"
+										stroke-width="4" stroke-opacity="1"
+										:class="{stickHide: currentGuesses >= 6, draw: currentGuesses <= 5}">
+									</use>
+								</g>
+							</g>
+							<g>
+								<g>
+									<use xlink:href="#lrrp94zNY" opacity="1" fill-opacity="0" stroke="#000000"
+										stroke-width="4" stroke-opacity="1"
+										:class="{stickHide: currentGuesses >= 5, draw: currentGuesses <= 4}">
+									</use>
+								</g>
+							</g>
+							<g>
+								<g>
+									<use xlink:href=" #fumoi3z9X" opacity="1" fill-opacity="0" stroke="#000000"
+										stroke-width="4" stroke-opacity="1"
+										:class="{stickHide: currentGuesses >= 4, draw: currentGuesses <= 3}">
+									</use>
+								</g>
+							</g>
+							<g>
+								<g>
+									<use xlink:href="#b8PrxARyG" opacity="1" fill-opacity="0" stroke="#000000"
+										stroke-width="4" stroke-opacity="1"
+										:class="{stickHide: currentGuesses >= 3, draw: currentGuesses <= 2}">
+									</use>
+								</g>
+							</g>
+							<g>
+								<g>
+									<use xlink:href="#aU7q5GLN7" opacity="1" fill-opacity="0" stroke="#000000"
+										stroke-width="4" stroke-opacity="1"
+										:class="{stickHide: currentGuesses >= 2, draw: currentGuesses <= 1}">
+									</use>
+								</g>
+							</g>
+							<g>
+								<g>
+									<use xlink:href="#guQqgb6po" opacity="1" fill-opacity="0" stroke="#000000"
+										stroke-width="4" stroke-opacity="1"
+										:class="{stickHide: currentGuesses >= 1, draw: currentGuesses <= 0}">
+									</use>
+								</g>
+							</g>
+							<g>
+								<g>
+									<use xlink:href="#a3hJkuh4Uc" opacity="1" fill-opacity="0" stroke="#000000"
+										stroke-width="4" stroke-opacity="1" :class="{stickHide: currentGuesses >= 1}">
+									</use>
+								</g>
+							</g>
+							<g>
+								<g>
+									<use xlink:href="#bk6KSW1j4" opacity="1" fill-opacity="0" stroke="#000000"
+										stroke-width="4" stroke-opacity="1" :class="{stickHide: currentGuesses >= 1}">
+									</use>
+								</g>
+							</g>
+							<g>
+								<g>
+									<use xlink:href="#c3EdhubU4v" opacity="1" fill-opacity="0" stroke="#000000"
+										stroke-width="4" stroke-opacity="1" :class="{stickHide: currentGuesses >= 1}">
+									</use>
+								</g>
+							</g>
+						</g>
+					</svg>
+
 				</div>
-			</form>
-		</div>
-		<p tabindex="0">
-			Used letters:
-			<span v-for='letter in guessedLetters'>{{letter}} </span>
-		</p>
-		<p aria-live="polite" aria-atomic="true" tabindex="0">
-			Remaining guesses <span>{{currentGuesses}}</span>
-		</p>
-		<div>
-			<button id="newGame" v-on:click='newGame()'>New Game</button>
+			</div>
+			<div>
+				<button id="newGame" v-on:click='newGame()'>New Game</button>
+			</div>
+
+
 		</div>
 	</main>
 </body>

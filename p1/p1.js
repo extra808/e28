@@ -17,12 +17,22 @@ var app = new Vue({
 		}
 	},
 	methods: {
+		alert: function () {
+			alert('Game over, the word was: ' + this.currentWord);
+		},
 		checkGuess: function () {
 			checkGuess();
 		},
 		endGame: function () {
 			this.letterDisabled = true;
-			alert('Game over, the word was: ' + this.currentWord);
+
+			let alertDelay = 0;
+			// delay to let animation finish
+			if (this.currentGuesses == 0) {
+				alertDelay = 1500;
+			}
+
+			setTimeout(this.alert, alertDelay);
 		},
 		newGame: function () {
 			newGame();
