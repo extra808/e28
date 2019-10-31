@@ -5,8 +5,8 @@ import BoardWall from './components/BoardWall.vue';
 let app = new Vue({
 	el: '#app',
 	components: {
-		'score-board': ScoreBoard,
-		'board-wall': BoardWall
+		"score-board": ScoreBoard,
+		"board-wall": BoardWall
 	},
 	data: {
 		difficulties: { 'Hard': { 'speed': '4000' } },
