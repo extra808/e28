@@ -18,4 +18,6 @@
 - [Managing SVG Interaction With The Pointer Events Property](https://www.smashingmagazine.com/2018/05/svg-interaction-pointer-events-property/)
 
 ## Notes for instructor
-I saw we'll be covering Vue transitions later and decided to use "vanilla" methods.
+- I saw we'll be covering Vue transitions later and decided to use "vanilla" methods.
+- The play area is only sized on page load so resizing the viewport (including opening devtools) will screw things up (reloading page fixes it).
+- I found the game a lot easier to play on a touchscreen
