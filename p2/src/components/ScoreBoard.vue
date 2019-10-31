@@ -15,6 +15,7 @@ export default {
 p {
   border: 2px solid;
   border-radius: 0.3rem;
+  min-width: 11ch;
   padding: 0.5em;
 }
 </style>
