@@ -42,10 +42,10 @@ let app = new Vue({
 			clearInterval(this.gameRunning);
 			this.gameRunning = 0;
 			if (score > 0) {
-				alert('Great zapping!');
+				setTimeout(() => alert('Great zapping!'), 16);
 			}
 			else {
-				alert('Keep practicing your zapping!');
+				setTimeout(() => alert('Keep practicing your zapping!'), 16);
 			}
 		},
 		newGame: function () {
