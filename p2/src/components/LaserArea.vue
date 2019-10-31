@@ -1,5 +1,5 @@
 <template>
-  <div id="laser_grid" @click="clickEvent(-1, $event)">
+  <div class="laser_grid" @click="clickEvent(-1, $event)">
     <svg
       :viewBox="svgViewbox"
       version="1.1"
@@ -28,7 +28,7 @@
         :x2="laserEndX"
         :y2="laserEndY"
         stroke-width="2"
-        id="laser_beam"
+        class="laser_beam"
         :class="laserStyles"
       />
       <circle :cx="svgCenterX" :cy="svgEndY" :r="svgCircleR" fill="gray" />
@@ -105,15 +105,15 @@ export default {
 </script>
 
 <style scoped>
-#laser_beam {
+.laser_beam {
   stroke: transparent;
 }
 
-#laser_beam.styles {
+.laser_beam.styles {
   stroke: red;
 }
 
-#laser_grid {
+.laser_grid {
   position: absolute;
   top: 0;
   right: 0;
@@ -121,7 +121,7 @@ export default {
   left: 0;
 }
 
-#laser_grid > svg {
+.laser_grid > svg {
   position: absolute;
   bottom: 0;
 }

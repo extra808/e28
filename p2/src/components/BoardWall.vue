@@ -1,5 +1,5 @@
 <template>
-  <div id="wall">
+  <div class="wall">
     <laser-area :target-clickx="$root.lastClickX" :target-clicky="$root.lastClickY"></laser-area>
     <a-skeeto v-if="$root.skeetoStart" @add-score="$emit('change-score', $event)"></a-skeeto>
   </div>
@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style scoped>
-#wall {
+.wall {
   background-color: #eef;
   outline: 1px solid blue;
   overflow: hidden;
