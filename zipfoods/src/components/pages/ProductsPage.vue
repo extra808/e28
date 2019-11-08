@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import ShowProduct from "./ShowProduct.vue";
-import { products } from "./../products.js";
+import ShowProduct from "./../ShowProduct.vue";
+import { products } from "./../../products.js";
 
 export default {
-  name: "ShowProducts",
+  name: "ProductsPage",
   data: function() {
     return {
       products: products
