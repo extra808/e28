@@ -23,8 +23,6 @@ export default {
 			.then(response => {
 				this.path = response.data.path;
 				this.posts = response.data.posts_index;
-
-				console.log(this.path);
 			})
 			.catch(error => {
 				console.log(error);
