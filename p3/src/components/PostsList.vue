@@ -19,12 +19,24 @@ export default {
 			posts: null
 		};
 	},
+	methods: {
+		// derived from loadCategories in zipfoods
+		collectTags: function(source) {
+			let tags = source.map(source => source.tags);
+			let mergedTags = [].concat.apply([], tags);
+
+			// Return unique categories
+			const tagList = [...new Set(mergedTags)];
+			this.$root.$emit('taglist', { path: this.path, tags: tagList });
+		}
+	},
 	mounted() {
 		app.axios
 			.get(app.config.api)
 			.then(response => {
 				this.path = response.data.path;
 				this.posts = response.data.posts_index;
+				this.collectTags(this.posts);
 			})
 			.catch(error => {
 				console.log(error);

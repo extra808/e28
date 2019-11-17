@@ -1,15 +1,17 @@
 <template>
 	<main>
 		<p>Home Page</p>
-		<posts-list></posts-list>
+		<posts-list />
+		<tags-list />
 	</main>
 </template>
 
 <script>
 import PostsList from './../PostsList.vue';
+import TagsList from './../TagsList.vue';
 
 export default {
 	name: 'HomePage',
-	components: { PostsList }
+	components: { PostsList, TagsList }
 };
 </script>
