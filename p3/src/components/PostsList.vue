@@ -1,7 +1,9 @@
 <template>
 	<ul>
 		<li v-for='post in posts' :key='post.id'>
-			<router-link :to='{ name: "post", params: {"path": path, "slug": post.slug } }'>{{ post.title }}</router-link>
+			<router-link
+				:to='{ name: "post", params: {"path": path, "id": post.id, "slug": post.slug } }'
+			>{{ post.title }}</router-link>
 		</li>
 	</ul>
 </template>
