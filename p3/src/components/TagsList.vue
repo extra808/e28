@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<ul>
-			<li v-for='tag in urlTags' :key='tag.tag'>
+			<li v-for='(tag, id) in urlTags' :key='id'>
 				<router-link :to='{ name: "tag", params: {"path": path, "tag": tag.url} }'>{{ tag.tag }}</router-link>
 			</li>
 		</ul>
@@ -20,14 +20,9 @@ export default {
 	computed: {
 		urlTags: function() {
 			return this.tags.map(tag => ({
-				url: this.uriString(tag),
+				url: tag.toLowerCase(),
 				tag: tag
 			}));
-		}
-	},
-	methods: {
-		uriString: function(str) {
-			return encodeURIComponent(str.toLowerCase());
 		}
 	},
 	mounted() {

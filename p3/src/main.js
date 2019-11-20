@@ -3,6 +3,7 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import HomePage from './components/pages/HomePage.vue'
 import PostPage from './components/pages/PostPage.vue'
+import PostsList from './components/PostsList.vue'
 
 
 Vue.config.productionTip = false
@@ -11,7 +12,7 @@ Vue.use(VueRouter);
 const routes = [
   { name: 'home', path: '/', component: HomePage },
   { name: 'post', path: '/:path/:id/:slug', component: PostPage, props: true },
-  { name: 'tag', path: '/:path/:tag', component: HomePage, props: true }
+  { name: 'tag', path: '/:path/:tag', component: PostsList, props: true }
 ]
 
 const router = new VueRouter({
