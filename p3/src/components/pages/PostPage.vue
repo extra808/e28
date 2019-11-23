@@ -1,14 +1,16 @@
 <template>
-	<div :class='{"is-offline": offline}'>
+	<div class='page' :class='{"is-offline": offline}'>
 		<offline-toggle :slug='slug' :post='post' />
-		<article>
-			<h1>
-				{{ post.title }}
-				<span class='is-offline' v-show='offline'>[Saved Offline]</span>
-			</h1>
-			<div v-html='post.body' class='post-body'></div>
-		</article>
-		<tags-list />
+		<tags-list :aclass='"page"' />
+		<div class='page-flex'>
+			<article>
+				<h1>
+					{{ post.title }}
+					<span class='is-offline' v-show='offline'>[Saved Offline]</span>
+				</h1>
+				<div v-html='post.body' class='post-body'></div>
+			</article>
+		</div>
 	</div>
 </template>
 
@@ -60,7 +62,13 @@ export default {
 </script>
 
 <style scoped>
+article {
+	max-width: 75ch;
+	padding: 0 0.5em;
+}
+
 .is-offline h1 span {
+	font-size: 1rem;
 	font-style: italic;
 }
 
@@ -77,6 +85,11 @@ export default {
 }
 
 .post-body pre {
+	border: 1px solid gray;
 	overflow-x: scroll;
+	padding-bottom: 1em;
+}
+
+.post-body pre code {
 }
 </style>

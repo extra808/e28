@@ -20,43 +20,47 @@ export default {
 </script>
 
 <style>
+:root {
+	--head-foot-bg: hsla(200, 50%, 70%, 1);
+	--button-hover-bg: hsla(200, 50%, 70%, 0.5);
+	--primary-color: blue;
+}
+
 *,
 *::before,
 *::after {
 	box-sizing: border-box;
 }
 
+html {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	height: 100%;
+}
+
 #app {
+	border-left: 1px solid var(--primary-color);
+	border-right: 1px solid var(--primary-color);
+	display: flex;
+	flex-direction: column;
 	font-family: sans-serif;
 	font-size: calc(16px + 6 * ((100vw - 320px) / 680));
+	height: 100%;
+	margin: 0 auto;
+	max-width: 60rem;
 }
+
 [v-cloak] {
 	display: none;
 }
 
-button {
-	border: 0;
-	border-radius: 0.3rem;
-	padding: 0.1em 0.5em;
-	margin: 0;
-	text-decoration: none;
-	background: hsl(0, 0%, 82%);
-	font-size: 1rem;
-	cursor: pointer;
-	text-align: center;
-	transition: background 250ms ease-in-out, transform 150ms ease;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-}
-
-button:hover,
-button:focus {
-	background: hsl(0, 0%, 46%);
-}
-
-button:focus {
-	outline: 1px solid #fff;
-	outline-offset: -4px;
+#app > header {
+	background-color: var(--head-foot-bg);
+	border-bottom: 1px solid var(--primary-color);
+	padding: 0.5em;
 }
 
 .visually-hidden {
@@ -74,5 +78,22 @@ button:focus {
 	font-family: serif;
 	font-size: calc(28px + 4 * ((100vw - 320px) / 680));
 	font-weight: 700;
+	margin: 1em 0;
 }
+
+.site-title a,
+.site-title a:visited {
+	color: var(--primary-color);
+	text-decoration: none;
+}
+
+.site-title a:hover {
+	text-decoration: underline;
+}
+
+/* div.page-flex {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+} */
 </style>

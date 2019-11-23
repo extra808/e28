@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class='posts-list'>
 		<h1 v-if='tag != null'>Tag: {{ titleTag }}</h1>
 		<ul>
 			<li v-for='post in posts' :key='post.id'>
@@ -67,3 +67,24 @@ export default {
 	}
 };
 </script>
+
+<style scoped>
+div.posts-list {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+h1 {
+	font-size: 1.5rem;
+	padding: 0 0.5rem;
+}
+ul {
+	flex: 1 0 auto;
+	list-style: none;
+	padding-left: 1em;
+}
+
+li {
+	margin-bottom: 0.5em;
+}
+</style>
