@@ -13,6 +13,7 @@
 - [JSON Editor Online](https://jsoneditoronline.org)
 - [JSON Stringify Text](https://onlinetexttools.com/json-stringify-text)
 - [Communication between sibling components in VueJs 2.0](https://stackoverflow.com/questions/38616167/communication-between-sibling-components-in-vuejs-2-0/47004242#47004242)
+- [Flexbox sticky footer](https://css-tricks.com/couple-takes-sticky-footer/#article-header-id-3)
 
 ## Notes for instructor
 - To test offline posts locally, save a post, return to home page, stop server, click on post link.
