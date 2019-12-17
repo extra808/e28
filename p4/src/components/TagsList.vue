@@ -13,25 +13,19 @@
 export default {
 	name: 'TagsList',
 	data: function() {
-		return {
-			path: null,
-			tags: []
-		};
+		return {};
 	},
-	props: ['aclass'],
+	props: ['aclass', 'tags'],
 	computed: {
+		path: function() {
+			return this.$store.getters.getPath;
+		},
 		urlTags: function() {
 			return this.tags.map(tag => ({
 				url: tag.toLowerCase(),
 				tag: tag
 			}));
 		}
-	},
-	mounted() {
-		this.$root.$on('taglist', tagList => {
-			this.path = tagList.path;
-			this.tags = tagList.tags.sort();
-		});
 	}
 };
 </script>

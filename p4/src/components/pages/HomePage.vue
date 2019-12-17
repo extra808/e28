@@ -5,7 +5,7 @@
 			<posts-list />
 		</main>
 		<aside>
-			<tags-list :a-class='"home"' />
+			<tags-list :a-class='"home"' :tags='tags' />
 		</aside>
 	</div>
 </template>
@@ -16,7 +16,16 @@ import TagsList from './../TagsList.vue';
 
 export default {
 	name: 'HomePage',
-	components: { PostsList, TagsList }
+	components: { PostsList, TagsList },
+	computed: {
+		tags() {
+			const allTags = this.$store.getters.getAllTags;
+			return allTags.sort();
+		}
+	},
+	mounted() {
+		this.$store.dispatch('setPostData');
+	}
 };
 </script>
 

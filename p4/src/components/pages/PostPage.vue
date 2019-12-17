@@ -1,7 +1,7 @@
 <template>
 	<div class='page' :class='{"is-offline": offline}'>
 		<offline-toggle :slug='slug' :post='post' />
-		<tags-list :aclass='"page"' />
+		<tags-list :aclass='"page"' :tags='tags' />
 		<div class='page-flex'>
 			<article>
 				<h1>
@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import * as app from './../../app.js';
 import OfflineToggle from './../OfflineToggle.vue';
 import TagsList from './../TagsList.vue';
 
@@ -25,10 +24,19 @@ export default {
 	props: ['id', 'path', 'slug'],
 	data: function() {
 		return {
-			errored: false,
-			offline: false,
-			post: {}
+			offline: false
 		};
+	},
+	computed: {
+		errored() {
+			return this.$store.getters.getErrored;
+		},
+		post() {
+			return this.$store.getters.getPostById(this.id);
+		},
+		tags() {
+			return this.$store.getters.getPostsIndexById(this.id).tags.sort();
+		}
 	},
 	watch: {
 		errored: function() {
@@ -42,21 +50,7 @@ export default {
 		}
 	},
 	mounted() {
-		app.axios
-			.get(app.config.api)
-			.then(response => {
-				this.post = response.data.posts[this.id];
-				const postIndex = response.data.posts_index[this.id];
-				this.$root.$emit('taglist', { path: this.path, tags: postIndex.tags });
-				this.errored = false;
-			})
-			.catch(error => {
-				console.log(error);
-				this.errored = true;
-			})
-			.finally(function() {
-				// always executed
-			});
+		this.$store.dispatch('setPostData');
 	}
 };
 </script>

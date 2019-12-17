@@ -8,62 +8,45 @@
 				>{{ post.title }}</router-link>
 			</li>
 		</ul>
-		<tags-list v-if='tag != null' />
+		<tags-list v-if='tag != null' :tags='tags' />
 	</div>
 </template>
 
 <script>
-import * as app from './../app.js';
 import TagsList from './TagsList.vue';
 
 export default {
 	name: 'PostsList',
 	components: { TagsList },
 	data: function() {
-		return {
-			path: null,
-			posts: null,
-			tags: []
-		};
+		return {};
 	},
 	props: ['tag'],
 	computed: {
-		titleTag: function() {
-			return this.tags.find(tag => this.tag == tag.toLowerCase());
-		}
-	},
-	methods: {
-		// derived from loadCategories in zipfoods
-		collectTags: function(source) {
-			let tags = source.map(source => source.tags);
-			let mergedTags = [].concat.apply([], tags);
-
-			// Return unique categories
-			this.tags = [...new Set(mergedTags)];
-			this.$root.$emit('taglist', { path: this.path, tags: this.tags });
-		}
-	},
-	watch: {
-		titleTag: function() {
-			this.posts = this.posts.filter(post => post.tags.includes(this.titleTag));
+		path() {
+			return this.$store.getters.getPath;
+		},
+		posts() {
+			if (this.tag) {
+				return this.$store.getters.getPostsIndex.filter(post =>
+					post.tags.includes(this.titleTag)
+				);
+			} else {
+				return this.$store.getters.getPostsIndex;
+			}
+		},
+		tags() {
+			const allTags = this.$store.getters.getAllTags;
+			return allTags.sort();
+		},
+		titleTag() {
+			return this.$store.getters.getAllTags.find(
+				tag => this.tag == tag.toLowerCase()
+			);
 		}
 	},
 	mounted() {
-		app.axios
-			.get(app.config.api)
-			.then(response => {
-				if (!this.path) {
-					this.path = response.data.path;
-				}
-				this.posts = response.data.posts_index;
-				this.collectTags(this.posts);
-			})
-			.catch(error => {
-				console.log(error);
-			})
-			.finally(function() {
-				// always executed
-			});
+		this.$store.dispatch('setPostData');
 	}
 };
 </script>

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
+import store from './store'
 import HomePage from './components/pages/HomePage.vue'
 import PostPage from './components/pages/PostPage.vue'
 import PostsList from './components/PostsList.vue'
@@ -21,6 +22,7 @@ const router = new VueRouter({
 })
 
 new Vue({
+  store: store,
   router: router,
   render: h => h(App),
 }).$mount('#app')
