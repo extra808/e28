@@ -15,11 +15,8 @@ export default {
 	data: function() {
 		return {};
 	},
-	props: ['aclass', 'tags'],
+	props: ['aclass', 'path', 'tags'],
 	computed: {
-		path: function() {
-			return this.$store.getters.getPath;
-		},
 		urlTags: function() {
 			return this.tags.map(tag => ({
 				url: tag.toLowerCase(),

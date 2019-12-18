@@ -5,7 +5,7 @@
 			<posts-list />
 		</main>
 		<aside>
-			<tags-list :a-class='"home"' :tags='tags' />
+			<tags-list :a-class='"home"' :path='path' :tags='tags' />
 		</aside>
 	</div>
 </template>
@@ -18,6 +18,9 @@ export default {
 	name: 'HomePage',
 	components: { PostsList, TagsList },
 	computed: {
+		path: function() {
+			return this.$store.getters.getPath;
+		},
 		tags() {
 			const allTags = this.$store.getters.getAllTags;
 			return allTags.sort();

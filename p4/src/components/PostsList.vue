@@ -8,7 +8,7 @@
 				>{{ post.title }}</router-link>
 			</li>
 		</ul>
-		<tags-list v-if='tag != null' :tags='tags' />
+		<tags-list v-if='tag != null' :path='path' :tags='tags' />
 	</div>
 </template>
 

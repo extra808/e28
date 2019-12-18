@@ -1,7 +1,7 @@
 <template>
 	<div class='page' :class='{"is-offline": offline}'>
 		<offline-toggle :slug='slug' :post='post' />
-		<tags-list :aclass='"page"' :tags='tags' />
+		<tags-list :aclass='"page"' :path='path' :tags='tags' />
 		<div class='page-flex'>
 			<article>
 				<h1>
