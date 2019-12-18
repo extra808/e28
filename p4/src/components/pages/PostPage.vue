@@ -83,7 +83,4 @@ article {
 	overflow-x: scroll;
 	padding-bottom: 1em;
 }
-
-.post-body pre code {
-}
 </style>

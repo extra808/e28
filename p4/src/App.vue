@@ -1,9 +1,11 @@
 <template>
 	<div id='app' v-cloak>
 		<header>
+			<!-- Site name is h1 heading on home page -->
 			<h1 class='site-title' v-if='this.$route.name == "home"'>
 				<router-link :to='{name: "home"}'>Accessibility Techniques</router-link>
 			</h1>
+			<!-- Other pages already have an h1 heading -->
 			<div class='site-title' v-else>
 				<router-link :to='{name: "home"}'>Accessibility Techniques</router-link>
 			</div>
@@ -90,10 +92,4 @@ body {
 .site-title a:hover {
 	text-decoration: underline;
 }
-
-/* div.page-flex {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-} */
 </style>
