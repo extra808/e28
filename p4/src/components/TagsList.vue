@@ -3,7 +3,10 @@
 		<h2>Tags</h2>
 		<ul>
 			<li v-for='(tag, id) in urlTags' :key='id'>
-				<router-link :to='{ name: "tag", params: {"path": path, "tag": tag.url} }'>{{ tag.tag }}</router-link>
+				<router-link
+					data-test='tag-list-link'
+					:to='{ name: "tag", params: {"path": path, "tag": tag.url} }'
+				>{{ tag.tag }}</router-link>
 			</li>
 		</ul>
 	</div>

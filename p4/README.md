@@ -9,5 +9,6 @@
 
 ## Outside resources
 [How to format a JavaScript date](https://stackoverflow.com/a/34015511)
+[Select Random Item from an Array](https://css-tricks.com/snippets/javascript/select-random-item-array/)
 
 ## Notes for instructor

@@ -4,6 +4,7 @@
 		<ul>
 			<li v-for='post in posts' :key='post.id'>
 				<router-link
+					data-test='post-list-link'
 					:to='{ name: "post", params: {"path": path, "id": post.id, "slug": post.slug } }'
 				>{{ post.title }}</router-link>
 			</li>
