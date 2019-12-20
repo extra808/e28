@@ -9,6 +9,9 @@
 			<div class='site-title' v-else>
 				<router-link :to='{name: "home"}'>Accessibility Techniques</router-link>
 			</div>
+			<div>
+				<router-link :to='{name: "question"}'>Ask a Question</router-link>
+			</div>
 		</header>
 		<router-view></router-view>
 	</div>
