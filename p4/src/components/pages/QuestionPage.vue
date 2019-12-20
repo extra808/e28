@@ -15,7 +15,7 @@
 						<span v-if='$v.email.$error'>is required</span>
 					</label>
 					<input
-						type='text'
+						type='email'
 						name='email'
 						id='qemail'
 						autocomplete='email'
