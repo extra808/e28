@@ -8,6 +8,7 @@ export default new Vuex.Store({
 	state: {
 		errored: false,
 		postdata: {},
+		questionData: [],
 		taglist: []
 	},
 	mutations: {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
 		},
 		setPostData(state, payload) {
 			state.postdata = payload;
+		},
+		setQuestionData(state, payload) {
+			state.questionData.push(payload);
 		},
 		setTagList(state, payload) {
 			// derived from loadCategories in zipfoods
@@ -42,6 +46,10 @@ export default new Vuex.Store({
 					// always executed
 				});
 
+		},
+		setQuestionData(context, question) {
+			question.date = new Date();
+			context.commit('setQuestionData', question);
 		}
 	},
 	getters: {
@@ -62,6 +70,9 @@ export default new Vuex.Store({
 		},
 		getPostsIndexById: (state) => (id) => {
 			return state.postdata.posts_index[id];
+		},
+		getLastQuestion: (state) => {
+			return state.questionData[state.questionData.length - 1];
 		}
 	}
 })

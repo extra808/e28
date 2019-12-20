@@ -1,67 +1,116 @@
 <template>
 	<main>
-		<form action method='post' @submit.prevent='questionSubmit'>
-			<fieldset>
-				<legend>
-					<h1>Ask a Question</h1>
-				</legend>
-				<div>
-					<label for='qname'>Name</label>
-					<input type='text' name='name' id='qname' autocomplete='name' v-model.lazy='name' />
-				</div>
-				<div>
-					<label for='qemail' :class='{ "form-input-error": $v.email.$error }'>
-						Email Address
-						<span v-if='$v.email.$error'>is required</span>
-					</label>
-					<input
-						type='email'
-						name='email'
-						id='qemail'
-						autocomplete='email'
-						:class='{ "form-input-error": $v.email.$error }'
-						v-model.lazy='$v.email.$model'
-					/>
-				</div>
-				<div>
-					<label for='qquestion' :class='{ "form-input-error": $v.question.$error }'>
-						Question
-						<span v-if='$v.question.$error'>is required, at least 4 letters</span>
-					</label>
-					<textarea
-						name='question'
-						id='qquestion'
-						cols='30'
-						rows='10'
-						:class='{ "form-input-error": $v.question.$error }'
-						v-model.lazy='$v.question.$model'
-					></textarea>
-				</div>
-				<div>
-					<input type='submit' name='submit' id='submit' value='Submit' />
-				</div>
-			</fieldset>
-		</form>
-		<div
-			class='global-error'
-			:aria-hidden='!hasErrors'
-			aria-live='polite'
-		>Please check input fields for errors and try again.</div>
+		<div>
+			<form action method='post' novalidate @submit.prevent='questionSubmit'>
+				<fieldset>
+					<legend>
+						<h1>Ask a Question</h1>
+					</legend>
+					<div>
+						<label for='qname'>Name</label>
+						<input type='text' name='name' id='qname' autocomplete='name' v-model.lazy='q.name' />
+					</div>
+					<div>
+						<label for='qemail' :class='{ "form-input-error": $v.q.email.$error }'>
+							Email Address
+							<span v-if='$v.q.email.$error'>is required</span>
+						</label>
+						<input
+							type='email'
+							name='email'
+							id='qemail'
+							autocomplete='email'
+							:class='{ "form-input-error": $v.q.email.$error }'
+							v-model.lazy='$v.q.email.$model'
+						/>
+					</div>
+					<div>
+						<label for='qquestion' :class='{ "form-input-error": $v.q.question.$error }'>
+							Question
+							<span v-if='$v.q.question.$error'>is required, at least 4 letters</span>
+						</label>
+						<textarea
+							name='question'
+							id='qquestion'
+							cols='30'
+							rows='10'
+							:class='{ "form-input-error": $v.q.question.$error }'
+							v-model.lazy='$v.q.question.$model'
+						></textarea>
+					</div>
+					<div>
+						<input type='submit' name='submit' id='submit' value='Submit' />
+					</div>
+				</fieldset>
+			</form>
+			<div
+				class='global-error'
+				:aria-hidden='!hasErrors'
+				aria-live='polite'
+			>Please check input fields for errors and try again.</div>
+		</div>
+		<div class='question-thanks' :aria-hidden='lastQuestionEmail' aria-live='polite'>
+			<h2>Thank you for your question</h2>
+		</div>
+		<div class='question' :aria-hidden='lastQuestionEmail'>
+			<p>
+				<span class='last-question-label'>Date</span>
+				{{ lastQuestionDate }}
+			</p>
+			<p v-if='lastQuestion.name'>
+				<span class='last-question-label'>Name</span>
+				{{ lastQuestion.name }}
+			</p>
+			<p>
+				<span class='last-question-label'>Email</span>
+				{{ lastQuestion.email }}
+			</p>
+			<p class='last-question-label'>Question</p>
+			<p class='show-question'>{{ lastQuestion.question }}</p>
+		</div>
 	</main>
 </template>
 
 <script>
 import { required, email, minLength } from 'vuelidate/lib/validators';
 
+const qTemplate = {
+	name: '',
+	email: '',
+	question: ''
+};
+
 export default {
 	name: 'QuestionPage',
 	data() {
 		return {
-			name: '',
-			email: '',
-			question: '',
+			lastQuestion: {},
+			q: {
+				name: '',
+				email: '',
+				question: ''
+			},
 			hasErrors: false
 		};
+	},
+	computed: {
+		lastQuestionEmail() {
+			return !this.lastQuestion.email;
+		},
+		lastQuestionDate() {
+			if (!this.lastQuestionEmail) {
+				const options = {
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric',
+					hour: 'numeric',
+					minute: 'numeric'
+				};
+				return this.lastQuestion.date.toLocaleDateString('en-US', options);
+			} else {
+				return '';
+			}
+		}
 	},
 	methods: {
 		questionSubmit() {
@@ -70,18 +119,26 @@ export default {
 				this.hasErrors = true;
 			} else {
 				// submit
+				this.$store.dispatch('setQuestionData', this.q);
+				// reset
+				this.$v.$reset();
 				this.hasErrors = false;
+				this.q = qTemplate;
+				// retrieve submitted question
+				this.lastQuestion = this.$store.getters.getLastQuestion;
 			}
 		}
 	},
 	validations: {
-		email: {
-			required,
-			email
-		},
-		question: {
-			required,
-			minLength: minLength(4)
+		q: {
+			email: {
+				required,
+				email
+			},
+			question: {
+				required,
+				minLength: minLength(4)
+			}
 		}
 	}
 };
@@ -114,12 +171,33 @@ textarea,
 	margin-bottom: 1em;
 }
 
+textarea,
+input[type='text'],
+input[type='email'] {
+	width: 100%;
+	max-width: 50ch;
+}
+
 .global-error {
 	color: var(--color-error);
 }
 
-.global-error[aria-hidden] {
+.global-error[aria-hidden],
+.question-thanks[aria-hidden],
+.question[aria-hidden] {
 	visibility: hidden;
+}
+
+.last-question-label {
+	font-weight: 700;
+}
+
+span.last-question-label {
+	display: inline-block;
+	min-width: 6ch;
+}
+.show-question {
+	white-space: pre-wrap;
 }
 
 input[type='submit'] {

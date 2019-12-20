@@ -8,5 +8,6 @@
 - removed unused CSS
 
 ## Outside resources
+[How to format a JavaScript date](https://stackoverflow.com/a/34015511)
 
 ## Notes for instructor
